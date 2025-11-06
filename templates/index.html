@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentNetwork.ai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AgentNetwork<span class="ai">.ai</span></h1>
+            <p class="tagline">Visualize Multi-Agent Collaboration in Real-Time</p>
+        </header>
+
+        <div class="content-wrapper">
+            
+            <div class="scene-container">
+                <div id="three-container"></div>
+                <div class="scene-overlay">
+                    <div id="agent-status">
+                        <div class="status-item">
+                            <span class="agent-dot red"></span>
+                            <span id="agent1-status">Agent 1: Idle</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="agent-dot blue"></span>
+                            <span id="agent2-status">Agent 2: Idle</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="agent-dot green"></span>
+                            <span id="agent3-status">Agent 3: Idle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-panel">
+                <div class="task-input-section">
+                    <h2>Task Assignment</h2>
+                    <textarea 
+                        id="task-input" 
+                        placeholder="Describe your task... (e.g., 'Plan a comprehensive marketing strategy for a new crypto exchange service')"
+                        rows="4"
+                    ></textarea>
+                    
+                    <div class="role-assignment">
+                        <h3>Assign Agent Roles</h3>
+                        <div class="role-select">
+                            <label>
+                                <span class="agent-dot red"></span> Agent 1:
+                                <select id="role1">
+                                    <option value="manager" selected>Manager</option>
+                                    <option value="researcher">Researcher</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="analyst">Analyst</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="role-select">
+                            <label>
+                                <span class="agent-dot blue"></span> Agent 2:
+                                <select id="role2">
+                                    <option value="researcher" selected>Researcher</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="analyst">Analyst</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="role-select">
+                            <label>
+                                <span class="agent-dot green"></span> Agent 3:
+                                <select id="role3">
+                                    <option value="designer" selected>Designer</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="researcher">Researcher</option>
+                                    <option value="developer">Developer</option>
+                                    <option value="analyst">Analyst</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button id="start-btn" class="btn-primary">Start Collaboration</button>
+                    <p id="system-status" class="hidden"></p>
+                </div>
+
+                <div class="progress-section">
+                    <h2>Agent Activity Log (Console Output)</h2>
+                    <div id="activity-log">
+                        <div class="activity-item system"><div class="activity-header">System</div><div class="activity-content">Welcome to AgentNetwork.ai! Enter a task and click "Start Collaboration" to begin.</div></div>
+                        </div>
+                </div>
+
+                <div class="output-section">
+                    <h2>Final Output</h2>
+                    <div id="final-output-wrapper">
+                        <div id="final-output" class="output-box placeholder-content">
+                            <p class="placeholder">The collaborative result will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="{{ url_for('static', filename='js/scene.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/agents.js') }}"></script>
+</body>
+</html>
