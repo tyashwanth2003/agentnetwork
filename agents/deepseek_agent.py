@@ -8,7 +8,7 @@ class DeepSeekAgent:
         if not self.api_key:
             raise ValueError("❌ DEEPSEEK_API_KEY not found in environment variables.")
 
-        # ✅ No proxies, clean initialization
+        # ✅ No proxies, clean initializationkkk
         self.client = OpenAI(
             api_key=self.api_key,
             base_url="https://api.deepseek.com"
