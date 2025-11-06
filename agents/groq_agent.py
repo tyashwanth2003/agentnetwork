@@ -8,6 +8,7 @@ class GroqAgent:
         if not self.api_key:
             raise ValueError("❌ GROQ_API_KEY not found in environment variables.")
 
+        # ✅ No proxies, correct OpenAI usage for Groq
         self.client = OpenAI(
             api_key=self.api_key,
             base_url="https://api.groq.com/openai/v1"
@@ -32,7 +33,7 @@ class GroqAgent:
             return f"Error from Groq Agent: {str(e)}"
 
     def generate_sync(self, prompt):
-        """Synchronous version for non-async contexts"""
+        """Synchronous version"""
         try:
             response = self.client.chat.completions.create(
                 model="llama-3.3-70b-versatile",

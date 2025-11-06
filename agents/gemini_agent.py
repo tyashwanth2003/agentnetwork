@@ -1,5 +1,5 @@
 import os
-from google import genai
+import google.generativeai as genai
 import asyncio
 
 class GeminiAgent:
@@ -8,8 +8,9 @@ class GeminiAgent:
         if not self.api_key:
             raise ValueError("❌ GEMINI_API_KEY not found in environment variables.")
 
-        self.client = genai.Client(api_key=self.api_key)
-        self.model = "gemini-2.0-flash-exp"
+        # Configure Google Generative AI client properly
+        genai.configure(api_key=self.api_key)
+        self.model = genai.GenerativeModel("gemini-2.0-flash-exp")
 
     async def generate(self, prompt):
         """Generate response from Gemini API"""
@@ -17,22 +18,16 @@ class GeminiAgent:
             loop = asyncio.get_event_loop()
             response = await loop.run_in_executor(
                 None,
-                lambda: self.client.models.generate_content(
-                    model=self.model,
-                    contents=prompt
-                )
+                lambda: self.model.generate_content(prompt)
             )
             return response.text
         except Exception as e:
             return f"Error from Gemini Agent: {str(e)}"
 
     def generate_sync(self, prompt):
-        """Synchronous version for non-async contexts"""
+        """Synchronous version"""
         try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=prompt
-            )
+            response = self.model.generate_content(prompt)
             return response.text
         except Exception as e:
             return f"Error from Gemini Agent: {str(e)}"

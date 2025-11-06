@@ -8,6 +8,7 @@ class DeepSeekAgent:
         if not self.api_key:
             raise ValueError("❌ DEEPSEEK_API_KEY not found in environment variables.")
 
+        # ✅ No proxies, clean initialization
         self.client = OpenAI(
             api_key=self.api_key,
             base_url="https://api.deepseek.com"
@@ -24,8 +25,7 @@ class DeepSeekAgent:
                     messages=[
                         {"role": "system", "content": "You are a helpful AI agent collaborating with a team."},
                         {"role": "user", "content": prompt}
-                    ],
-                    stream=False
+                    ]
                 )
             )
             return response.choices[0].message.content
@@ -33,15 +33,14 @@ class DeepSeekAgent:
             return f"Error from DeepSeek Agent: {str(e)}"
 
     def generate_sync(self, prompt):
-        """Synchronous version for non-async contexts"""
+        """Synchronous version"""
         try:
             response = self.client.chat.completions.create(
                 model="deepseek-chat",
                 messages=[
                     {"role": "system", "content": "You are a helpful AI agent collaborating with a team."},
                     {"role": "user", "content": prompt}
-                ],
-                stream=False
+                ]
             )
             return response.choices[0].message.content
         except Exception as e:
